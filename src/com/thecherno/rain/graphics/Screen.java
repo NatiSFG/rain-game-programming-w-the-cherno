@@ -2,7 +2,7 @@ package com.thecherno.rain.graphics;
 
 import java.util.Random;
 
-import come.thecherno.rain.level.tile.Tile;
+import com.thecherno.rain.level.tile.Tile;
 
 public class Screen {
 

@@ -1,4 +1,4 @@
-package come.thecherno.rain.level;
+package com.thecherno.rain.level;
 
 import com.thecherno.rain.graphics.Screen;
 
