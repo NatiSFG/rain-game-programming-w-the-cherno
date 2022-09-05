@@ -38,8 +38,9 @@ public class Screen {
 			int yAbsolute = y + yPosition;
 			for (int x = 0; x < tile.sprite.SIZE; x++) {
 				int xAbsolute = x + xPosition;
-				if (xAbsolute < 0 || xAbsolute >= width || yAbsolute < 0 || yAbsolute >= width) break;
-				pixels[xAbsolute + yAbsolute * width] = tile.sprite.pixels[x + y * tile.sprite.SIZE];//Carlos!
+				if (xAbsolute < -tile.sprite.SIZE || xAbsolute >= width || yAbsolute < 0 || yAbsolute >= height) break;
+				if (xAbsolute < 0) xAbsolute = 0;
+				pixels[xAbsolute + yAbsolute * width] = tile.sprite.pixels[x + y * tile.sprite.SIZE];
 			}
 		}
 	}
