@@ -11,8 +11,16 @@ public abstract class Mob extends Entity {
 	protected int direction = 0; //0 is north, 1 is east, 2 is south, 3 is west (typically)
 	protected boolean moving = false;
 
-	public void move() {
+	public void move(int xLocation, int yLocation) {
+		if (xLocation > 0) direction = 1;
+		if (xLocation < 0) direction = 3;
+		if (yLocation > 0) direction = 2;
+		if (yLocation < 0) direction = 0;
 
+		if (!collision()) {
+			x += xLocation;
+			y += yLocation;
+		}
 	}
 
 	public void update() {
