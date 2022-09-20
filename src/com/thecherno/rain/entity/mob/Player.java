@@ -33,10 +33,14 @@ public class Player extends Mob {
 	}
 
 	public void render(Screen screen) {
+		int flip = 0;
 		if (direction == 0) sprite = Sprite.playerUp;
-		if (direction == 1) sprite = Sprite.playerRight;
+		if (direction == 1) sprite = Sprite.playerSide;
 		if (direction == 2) sprite = Sprite.playerDown;
-		if (direction == 3) sprite = Sprite.playerLeft;
-		screen.renderPlayer(x - 16, y - 16, sprite);
+		if (direction == 3) {
+			sprite = Sprite.playerSide;
+			flip = 1;
+		}
+		screen.renderPlayer(x - 16, y - 16, sprite, flip);
 	}
 }
