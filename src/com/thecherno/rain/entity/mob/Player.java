@@ -16,7 +16,7 @@ public class Player extends Mob {
 		sprite = Sprite.playerUp;
 	}
 
-	public Player(int x, int y, Keyboard input) {
+	public Player(int x, int y, Keyboard input) { //changes location of player x, y
 		this.x = x;
 		this.y = y; //both of these "this" lines set the x and y from Entity to the arguments in this constructor
 		//that's because this Player class extends Mob and the Mob class extends Entity so Entity is available to us!

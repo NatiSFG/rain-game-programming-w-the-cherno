@@ -5,9 +5,11 @@ import com.thecherno.rain.level.tile.Tile;
 
 public class Level {
 
-	protected Tile[] tiles;
 	protected int width, height;
 	protected int[] tilesInt;
+	protected int[] tiles; //contains all the level's tiles
+
+	public static Level spawn = new SpawnLevel("/levels/spawn.png");
 
 	/** Generates a level*/
 	public Level(int width, int height) {
@@ -19,6 +21,7 @@ public class Level {
 
 	public Level(String path) {
 		loadLevel(path);
+		generateLevel();
 	}
 
 	protected void generateLevel() {
@@ -47,20 +50,23 @@ public class Level {
 
 		for (int y = y0; y < y1; y++) {
 			for (int x = x0; x < x1; x++) {
-				//getTile(x, y).render(x, y, screen);
-				if (x < 0 || y < 0 || x >= width || y >= height) Tile.voidTile.render(x, y, screen);
-				else
-					tiles[x + y * 16].render(x, y, screen);
+				getTile(x, y).render(x, y, screen);
 			}
 		}
 	}
 
+	//Grass = 0xFF00FF00
+	//Flower = 0xFFFFFF00
+	//Rock = 0xFF7F7F00
 	public Tile getTile(int x, int y) {
 		if (x < 0 || y < 0 || x >= width || y >= height) return Tile.voidTile;
 		//if the tiles[] index is 0, set that tile to a GrassTile. will set indexes 0 to 3 to be each of their own specific tiles
-		if (tilesInt[x + y * width] == 0) return Tile.grass;
-		if (tilesInt[x + y * width] == 1) return Tile.flower;
-		if (tilesInt[x + y * width] == 2) return Tile.rock;
+		if (tiles[x + y * width] == Tile.colorSpawnFloor) return Tile.spawnFloor;
+		if (tiles[x + y * width] == Tile.colorSpawnGrass) return Tile.spawnGrass;
+		if (tiles[x + y * width] == Tile.colorspawnHedge) return Tile.spawnHedge;
+		if (tiles[x + y * width] == Tile.colorSpawnWall1) return Tile.spawnWall1;
+		if (tiles[x + y * width] == Tile.colorSpawnWall2) return Tile.spawnWall2;
+		if (tiles[x + y * width] == Tile.colorSpawnWater) return Tile.spawnWater;
 		return Tile.voidTile;
 	}
 }

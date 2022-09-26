@@ -12,6 +12,15 @@ public class Sprite {
 	public static Sprite rock = new Sprite(16, 0, 1, SpriteSheet.tiles);
 	public static Sprite voidSprite = new Sprite(16, 0x1B87E0);
 
+	//Spawn Level Sprites here:
+	public static Sprite spawnGrass = new Sprite(16, 0, 0, SpriteSheet.spawnLevel);
+	public static Sprite spawnHedge = new Sprite(16, 1, 0, SpriteSheet.spawnLevel);
+	public static Sprite spawnWater = new Sprite(16, 2, 0, SpriteSheet.spawnLevel);
+	public static Sprite spawnWall1 = new Sprite(16, 0, 1, SpriteSheet.spawnLevel);
+	public static Sprite spawnWall2 = new Sprite(16, 0, 2, SpriteSheet.spawnLevel);
+	public static Sprite spawnFloor = new Sprite(16, 1, 1, SpriteSheet.spawnLevel);
+
+	//Player Sprites here:
 	public static Sprite playerUp = new Sprite(32, 1, 0, SpriteSheet.tiles);
 	public static Sprite playerDown = new Sprite(32, 3, 0, SpriteSheet.tiles);
 	public static Sprite playerSide = new Sprite(32, 2, 0, SpriteSheet.tiles);

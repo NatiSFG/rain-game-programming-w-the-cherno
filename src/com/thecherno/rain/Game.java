@@ -13,7 +13,6 @@ import com.thecherno.rain.entity.mob.Player;
 import com.thecherno.rain.graphics.Screen;
 import com.thecherno.rain.input.Keyboard;
 import com.thecherno.rain.level.Level;
-import com.thecherno.rain.level.SpawnLevel;
 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
@@ -42,8 +41,8 @@ public class Game extends Canvas implements Runnable {
 		screen = new Screen(width, height);
 		frame = new JFrame();
 		key = new Keyboard();
-		level = new SpawnLevel("/textures/level.png");
-		player = new Player(key);
+		level = Level.spawn;
+		player = new Player(6 * 16, 7 * 16, key);
 
 		addKeyListener(key);
 	}
