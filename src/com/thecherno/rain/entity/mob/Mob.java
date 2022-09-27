@@ -17,7 +17,7 @@ public abstract class Mob extends Entity {
 		if (yLocation > 0) direction = 2;
 		if (yLocation < 0) direction = 0;
 
-		if (!collision()) {
+		if (!collision(xLocation, yLocation)) {
 			x += xLocation;
 			y += yLocation;
 		}
@@ -27,8 +27,10 @@ public abstract class Mob extends Entity {
 
 	}
 
-	private boolean collision() {
-		return false;
+	private boolean collision(int xLocation, int yLocation) {
+		boolean solid = false;
+		if (level.getTile((x + xLocation) / 16, (y + yLocation) / 16).solid()) solid = true; //rough collision detection
+		return solid;
 	}
 
 	public void render() {

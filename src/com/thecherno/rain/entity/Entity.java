@@ -27,4 +27,8 @@ public abstract class Entity { //abstract means it's like a template. It cannot 
 	public boolean isRemoved() {
 		return removed;
 	}
+
+	public void initialize(Level level) {
+		this.level = level;
+	}
 }
