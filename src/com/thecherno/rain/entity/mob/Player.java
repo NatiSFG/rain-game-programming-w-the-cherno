@@ -1,8 +1,10 @@
 package com.thecherno.rain.entity.mob;
 
+import com.thecherno.rain.Game;
 import com.thecherno.rain.graphics.Screen;
 import com.thecherno.rain.graphics.Sprite;
 import com.thecherno.rain.input.Keyboard;
+import com.thecherno.rain.input.Mouse;
 
 public class Player extends Mob {
 
@@ -34,12 +36,22 @@ public class Player extends Mob {
 		if (input.down) ya++;
 		if (input.left) xa--;
 		if (input.right) xa++;
-
 		if (xa != 0 || ya != 0) {
 			move(xa, ya);
 			walking = true;
 		} else
 			walking = false;
+
+		updateShooting();
+	}
+
+	private void updateShooting() {
+		if (Mouse.getButton() == 1) {
+			double xDirection = Mouse.getX() - Game.getWindowWidth() / 2; //Mouse location on screen minus width of screen /2 gives us half way starting point in screen where projectile starts
+			double yDirection = Mouse.getY() - Game.getWindowHeight() / 2; //same with height of screen (both are where the player always is)
+			double direction = Math.atan2(yDirection, xDirection);
+			shoot(x, y, direction);
+		}
 	}
 
 	public void render(Screen screen) {

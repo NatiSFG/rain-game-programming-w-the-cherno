@@ -2,8 +2,6 @@ package com.thecherno.rain.graphics;
 
 import java.util.Random;
 
-import com.thecherno.rain.level.tile.Tile;
-
 public class Screen {
 
 	public int width, height;
@@ -31,16 +29,16 @@ public class Screen {
 		}
 	}
 
-	public void renderTile(int xPosition, int yPosition, Tile tile) {
+	public void renderTile(int xPosition, int yPosition, Sprite sprite) {
 		xPosition -= xOffset; //same as saying xPosition = xPosition - xOffset
 		yPosition -= yOffset;
-		for (int y = 0; y < tile.sprite.SIZE; y++) {
+		for (int y = 0; y < sprite.SIZE; y++) {
 			int yAbsolute = y + yPosition;
-			for (int x = 0; x < tile.sprite.SIZE; x++) {
+			for (int x = 0; x < sprite.SIZE; x++) {
 				int xAbsolute = x + xPosition;
-				if (xAbsolute < -tile.sprite.SIZE || xAbsolute >= width || yAbsolute < 0 || yAbsolute >= height) break;
+				if (xAbsolute < -sprite.SIZE || xAbsolute >= width || yAbsolute < 0 || yAbsolute >= height) break;
 				if (xAbsolute < 0) xAbsolute = 0;
-				pixels[xAbsolute + yAbsolute * width] = tile.sprite.pixels[x + y * tile.sprite.SIZE];
+				pixels[xAbsolute + yAbsolute * width] = sprite.pixels[x + y * sprite.SIZE];
 			}
 		}
 	}

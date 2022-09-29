@@ -1,7 +1,9 @@
 package com.thecherno.rain;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -12,15 +14,16 @@ import javax.swing.JFrame;
 import com.thecherno.rain.entity.mob.Player;
 import com.thecherno.rain.graphics.Screen;
 import com.thecherno.rain.input.Keyboard;
+import com.thecherno.rain.input.Mouse;
 import com.thecherno.rain.level.Level;
 import com.thecherno.rain.level.TileCoordinate;
 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 
-	public static int width = 300;
-	public static int height = 168;
-	public static int scale = 3;
+	private static int width = 300;
+	private static int height = 168;
+	private static int scale = 3;
 	public static String title = "Rain";
 
 	private Thread thread;
@@ -46,7 +49,19 @@ public class Game extends Canvas implements Runnable {
 		TileCoordinate playerSpawn = new TileCoordinate(19, 37);
 		player = new Player(playerSpawn.x(), playerSpawn.y(), key);
 		player.initialize(level);
+
 		addKeyListener(key);
+		Mouse mouse = new Mouse();
+		addMouseListener(mouse); //listens for buttons pressed
+		addMouseMotionListener(mouse); //listens for location of cursor
+	}
+
+	public static int getWindowWidth() {
+		return width * scale;
+	}
+
+	public static int getWindowHeight() {
+		return height * scale;
 	}
 
 	public synchronized void start() {
@@ -98,6 +113,7 @@ public class Game extends Canvas implements Runnable {
 	public void update() {
 		key.update();
 		player.update();
+		level.update();
 	}
 
 	public void render() {
@@ -119,6 +135,10 @@ public class Game extends Canvas implements Runnable {
 
 		Graphics g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("Verdana", 0, 50));
+		//g.fillRect(Mouse.getX() - 32, Mouse.getY() - 32, 64, 64);
+		//if (Mouse.getButton() != -1) g.drawString("Button: " + Mouse.getButton(), 80, 80);
 		g.dispose();
 		bs.show();
 	}
