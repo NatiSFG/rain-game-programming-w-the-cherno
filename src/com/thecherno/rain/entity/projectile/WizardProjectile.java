@@ -19,7 +19,7 @@ public class WizardProjectile extends Projectile {
 	}
 
 	public void update() {
-
+		move();
 	}
 
 	protected void move() {
