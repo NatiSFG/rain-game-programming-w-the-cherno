@@ -8,7 +8,9 @@ public abstract class Projectile extends Entity {
 	protected final int xOrigin, yOrigin; //where projectile spawns
 	protected double angle;
 	protected Sprite sprite;
+	protected double x, y;
 	protected double xVectorPoint, yVectorPoint; //will change each tick
+	protected double distance;
 	protected double speed, rateOfFire, range, damage;
 
 	public Projectile(int x, int y, double direction) {
@@ -17,6 +19,14 @@ public abstract class Projectile extends Entity {
 		angle = direction;
 		this.x = x;
 		this.y = y;
+	}
+
+	public Sprite getSprite() {
+		return sprite;
+	}
+
+	public int getSpriteSize() {
+		return sprite.SIZE;
 	}
 
 	protected void move() {

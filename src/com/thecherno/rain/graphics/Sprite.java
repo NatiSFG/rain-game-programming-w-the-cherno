@@ -34,6 +34,9 @@ public class Sprite {
 	public static Sprite playerDown1 = new Sprite(32, 3, 1, SpriteSheet.tiles);
 	public static Sprite PlayerDown2 = new Sprite(32, 3, 2, SpriteSheet.tiles);
 
+	//Projectile Sprites here:
+	public static Sprite projectileWizard = new Sprite(16, 0, 0, SpriteSheet.projectileWizard);
+
 	public Sprite(int size, int tileX, int tileY, SpriteSheet sheet) {
 		SIZE = size;
 		pixels = new int[SIZE * SIZE];
