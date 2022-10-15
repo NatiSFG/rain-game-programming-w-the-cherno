@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.thecherno.rain.entity.Entity;
+import com.thecherno.rain.entity.projectile.Projectile;
 import com.thecherno.rain.graphics.Screen;
 import com.thecherno.rain.level.tile.Tile;
 
@@ -14,6 +15,7 @@ public class Level {
 	protected int[] tiles; //contains all the level's tiles
 
 	private List<Entity> entities = new ArrayList<Entity>();
+	private List<Projectile> projectiles = new ArrayList<Projectile>();
 
 	public static Level spawn = new SpawnLevel("/levels/spawn.png");
 
@@ -42,10 +44,31 @@ public class Level {
 		for (int i = 0; i < entities.size(); i++) {
 			entities.get(i).update();
 		}
+		for (int i = 0; i < projectiles.size(); i++) {
+			projectiles.get(i).update();
+		}
+	}
+
+	public List<Projectile> getProjectiles() {
+		return projectiles;
 	}
 
 	private void time() {
 
+	}
+
+	//Carlos!
+	public boolean tileCollision(double x, double y, double xLocation, double yLocation, int size) {
+		boolean solid = false;
+		for (int corner = 0; corner < 4; corner++) { //checking for each corner of a tile
+			//double xTilePixel = ((x + xLocation) + corner % 2 * size - size / 2) / 16;
+			//double yTilePixel = ((y + yLocation) + corner / 2 * size - size / 2) / 16;
+			int xTilePixel = (((int) x + (int) xLocation) + corner % 2 * size / 2 - 5) / 16; //modulus 2, checking for x coordinates. width is 2 because 2 dots in the square
+			int yTilePixel = (((int) y + (int) yLocation) + corner / 2 * size / 6 + 5) / 16; //divide by 2 for y/ *12+3 adjusts where the center point is of the solid tile
+			//if any of the corners belongs to a solid tile, don't move through it
+			if (getTile(xTilePixel, yTilePixel).solid()) solid = true; //rough collision detection
+		}
+		return solid;
 	}
 
 	//defines corner pins of screen/map we want to render instead of rendering the entire world/map all the time
@@ -64,10 +87,18 @@ public class Level {
 		for (int i = 0; i < entities.size(); i++) {
 			entities.get(i).render(screen);
 		}
+		for (int i = 0; i < projectiles.size(); i++) {
+			projectiles.get(i).render(screen);
+		}
 	}
 
 	public void add(Entity e) {
 		entities.add(e);
+	}
+
+	public void addProjectile(Projectile p) {
+		p.initialize(this);
+		projectiles.add(p);
 	}
 
 	//Grass = 0xFF00FF00

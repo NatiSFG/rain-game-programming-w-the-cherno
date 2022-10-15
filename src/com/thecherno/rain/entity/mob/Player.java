@@ -2,6 +2,7 @@ package com.thecherno.rain.entity.mob;
 
 import com.thecherno.rain.Game;
 import com.thecherno.rain.entity.projectile.Projectile;
+import com.thecherno.rain.entity.projectile.WizardProjectile;
 import com.thecherno.rain.graphics.Screen;
 import com.thecherno.rain.graphics.Sprite;
 import com.thecherno.rain.input.Keyboard;
@@ -14,6 +15,8 @@ public class Player extends Mob {
 	private int animate = 0;
 	private boolean walking = false;
 
+	private int fireRate = 0;
+
 	public Player(Keyboard input) {
 		this.input = input;
 		sprite = Sprite.playerUp;
@@ -25,9 +28,11 @@ public class Player extends Mob {
 		//that's because this Player class extends Mob and the Mob class extends Entity so Entity is available to us!
 		this.input = input;
 		sprite = Sprite.playerUp;
+		fireRate = WizardProjectile.FIRE_RATE;
 	}
 
 	public void update() {
+		if (fireRate > 0) fireRate--;
 		int xa = 0, ya = 0;
 		if (animate < 7500) animate++; //safeguard in case someone leaves the game open over night so it doesn't crash
 		//should be increasing 60 every second
@@ -47,18 +52,19 @@ public class Player extends Mob {
 	}
 
 	private void clear() {
-		for (int i = 0; i < projectiles.size(); i++) {
-			Projectile p = projectiles.get(i);
-			if (p.isRemoved()) projectiles.remove(i);
+		for (int i = 0; i < level.getProjectiles().size(); i++) {
+			Projectile p = level.getProjectiles().get(i);
+			if (p.isRemoved()) level.getProjectiles().remove(i);
 		}
 	}
 
 	private void updateShooting() {
-		if (Mouse.getButton() == 1) {
+		if (Mouse.getButton() == 1 && fireRate <= 0) {
 			double xDirection = Mouse.getX() - Game.getWindowWidth() / 2; //Mouse location on screen minus width of screen /2 gives us half way starting point in screen where projectile starts
 			double yDirection = Mouse.getY() - Game.getWindowHeight() / 2; //same with height of screen (both are where the player always is)
 			double direction = Math.atan2(yDirection, xDirection);
 			shoot(x, y, direction);
+			fireRate = WizardProjectile.FIRE_RATE;
 		}
 	}
 

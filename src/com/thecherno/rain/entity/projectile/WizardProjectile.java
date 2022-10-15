@@ -5,12 +5,13 @@ import com.thecherno.rain.graphics.Sprite;
 
 public class WizardProjectile extends Projectile {
 
+	public static final int FIRE_RATE = 10; //the higher FIRE_RATE is, the more space between each projectile
+
 	public WizardProjectile(int x, int y, double direction) {
 		super(x, y, direction);
-		range = 2;
+		range = 200;
 		speed = 4;
 		damage = 20;
-		rateOfFire = 15;
 		sprite = Sprite.projectileWizard;
 
 		xVectorPoint = speed * Math.cos(angle); //to have a projectile look like it's traveling diagonally, it zig-zags in the x and y axis like steps.
@@ -18,14 +19,20 @@ public class WizardProjectile extends Projectile {
 		yVectorPoint = speed * Math.sin(angle);
 	}
 
+	//Carlos! I'm not sure what I'm missing
 	public void update() {
+		if (level.tileCollision(x, y, xVectorPoint, yVectorPoint, 7)) remove();
 		move();
 	}
 
+	//Carlos! I have remove the if condition and then the projectiles do not collide with anything anymore.
+	//I want the projectiles to collide and be removed immediately on collison
 	protected void move() {
-		x += xVectorPoint;
-		y += yVectorPoint;
-		distance();
+		if (!level.tileCollision(x, y, xVectorPoint, yVectorPoint, 7)) {
+			x += xVectorPoint;
+			y += yVectorPoint;
+		} else
+			remove();
 		if (distance() > range) remove();
 	}
 

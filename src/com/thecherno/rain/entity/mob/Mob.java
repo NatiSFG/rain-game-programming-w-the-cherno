@@ -1,8 +1,5 @@
 package com.thecherno.rain.entity.mob;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.thecherno.rain.entity.Entity;
 import com.thecherno.rain.entity.projectile.Projectile;
 import com.thecherno.rain.entity.projectile.WizardProjectile;
@@ -16,8 +13,6 @@ public abstract class Mob extends Entity {
 	protected int direction = 0; //0 is north, 1 is east, 2 is south, 3 is west (typically)
 	protected boolean moving = false;
 	protected boolean walking = false;
-
-	protected List<Projectile> projectiles = new ArrayList<Projectile>();
 
 	public void move(int xLocation, int yLocation) {
 		if (xLocation != 0 && yLocation != 0) {
@@ -43,8 +38,7 @@ public abstract class Mob extends Entity {
 	protected void shoot(int xPlayerLocation, int yPlayerLocation, double direction) {
 		//direction *= 180 / Math.PI;
 		Projectile projectile = new WizardProjectile(x, y, direction);
-		projectiles.add(projectile);
-		level.add(projectile);
+		level.addProjectile(projectile);
 	}
 
 	private boolean collision(int xLocation, int yLocation) {
