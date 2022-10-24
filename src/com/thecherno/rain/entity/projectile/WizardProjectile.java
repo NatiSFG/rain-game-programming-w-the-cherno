@@ -10,7 +10,7 @@ public class WizardProjectile extends Projectile {
 	public WizardProjectile(int x, int y, double direction) {
 		super(x, y, direction);
 		range = 200;
-		speed = 4;
+		speed = 1;
 		damage = 20;
 		sprite = Sprite.projectileWizard;
 
@@ -22,7 +22,8 @@ public class WizardProjectile extends Projectile {
 	//Carlos! I'm not sure what I'm missing
 	public void update() {
 		if (level.tileCollision(x, y, xVectorPoint, yVectorPoint, 7)) remove();
-		move();
+		else
+			move();
 	}
 
 	//Carlos! I have remove the if condition and then the projectiles do not collide with anything anymore.
@@ -33,7 +34,7 @@ public class WizardProjectile extends Projectile {
 			y += yVectorPoint;
 		} else
 			remove();
-		if (distance() > range) remove();
+		//if (distance() > range) remove();
 	}
 
 	private double distance() {

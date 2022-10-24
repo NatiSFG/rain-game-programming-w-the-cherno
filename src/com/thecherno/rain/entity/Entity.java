@@ -21,6 +21,7 @@ public abstract class Entity { //abstract means it's like a template. It cannot 
 
 	public void remove() {
 		//Remove from level
+		//Player.clear();
 		removed = true;
 	}
 
