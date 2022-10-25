@@ -47,6 +47,8 @@ public class Level {
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles.get(i).update();
 		}
+
+		clear();
 	}
 
 	public List<Projectile> getProjectiles() {
@@ -57,7 +59,27 @@ public class Level {
 
 	}
 
-	//Carlos!
+	//This checks every frame (because it's called during update())
+	//	to remove any entities in this level where their isRemoved() == true
+	private void clear() {
+		//NOTE: We iterate through BOTH lists so that ANY Entity that isRemoved() == true,
+		//it'll always deterministically get deleted/cleared from this level,
+		//even if it's NOT a projectile.
+
+		//TODO: In the future, could we consolidate the 2 for loops below?
+		for (int i = 0; i < entities.size(); i++) {
+			Entity e = entities.get(i);
+			if (e.isRemoved())
+				entities.remove(i);
+		}
+
+		for (int i = 0; i < projectiles.size(); i++) {
+			Projectile p = projectiles.get(i);
+			if (p.isRemoved())
+				projectiles.remove(i);
+		}
+	}
+
 	public boolean tileCollision(double x, double y, double xLocation, double yLocation, int size) {
 		boolean solid = false;
 		for (int corner = 0; corner < 4; corner++) { //checking for each corner of a tile

@@ -51,13 +51,6 @@ public class Player extends Mob {
 		updateShooting();
 	}
 
-	private void clear() {
-		for (int i = 0; i < level.getProjectiles().size(); i++) {
-			Projectile p = level.getProjectiles().get(i);
-			if (p.isRemoved()) level.getProjectiles().remove(i);
-		}
-	}
-
 	private void updateShooting() {
 		if (Mouse.getButton() == 1 && fireRate <= 0) {
 			double xDirection = Mouse.getX() - Game.getWindowWidth() / 2; //Mouse location on screen minus width of screen /2 gives us half way starting point in screen where projectile starts
