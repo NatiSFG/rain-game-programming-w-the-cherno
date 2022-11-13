@@ -13,16 +13,25 @@ public class Particle extends Entity {
     private Sprite sprite;
 
     private int lifespan;
-    protected double xDouble, yDouble, xOffset, yOffset;
+
+    //WARNING: These 2 values duplicate Entity.x and Entity.y, but with higher precision.
+    //We are keeping Entity.x and Entity.y, which use integer pixel values, just so
+    //we don't have to modify the rest of the code for now.
+    protected double xDouble, yDouble;
+
+    //NOTE: These are NOT updated with delta time taken into account, so it's not speed technically:
+    protected double xOffset;
+    protected double yOffset;
 
     public Particle(int x, int y, int lifespan) {
-        this.x = x;
-        this.y = y;
+        xDouble = this.x = x;
+        yDouble = this.y = y;
+
         this.lifespan = lifespan;
         sprite = Sprite.particle_normal;
 
-        this.xOffset = random.nextGaussian();
-        this.yOffset = random.nextGaussian();
+        xOffset = random.nextGaussian();
+        yOffset = random.nextGaussian();
     }
 
     public Particle(int x, int y, int lifespan, int amount) {
@@ -34,8 +43,8 @@ public class Particle extends Entity {
     }
 
     public void update() {
-        this.xDouble += xOffset;
-        this.yDouble += yOffset;
+        xDouble += xOffset;
+        yDouble += yOffset;
     }
 
     public void render(Screen screen) {
